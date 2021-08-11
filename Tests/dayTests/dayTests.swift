@@ -24,7 +24,6 @@
         func testInitFromDate() {
             let formatter = ISO8601DateFormatter()
             formatter.formatOptions = [.withInternetDateTime]
-            print(formatter.string(from: Date()))
             let date = formatter.date(from: "2021-08-11T05:06:11Z")!
             
             let et = EasternDay(date: date)

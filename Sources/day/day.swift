@@ -7,10 +7,19 @@
 //
 
 import Foundation
-//public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Comparable, ForwardIndexType, RandomAccessIndexType
+
+/// The typeliases provided are a convenience instead of dealing
+/// with the generics directly
+public typealias EasternDay  = Day<EasternTimeZone>
+public typealias CentralDay  = Day<CentralTimeZone>
+public typealias MountainDay = Day<MountainTimeZone>
+public typealias PacificDay  = Day<PacificTimeZone>
+
 public struct Day<TZ: TimeZoneProvider> {
     let components: DateComponents
     
+    
+    // MARK: - Initializers
     init(year: Int, month: Int, day: Int) {
         let calendar = Calendar.init(identifier: .gregorian)
         self.components = DateComponents(calendar: calendar, timeZone: TZ.timeZone, year: year, month: month, day: day)
@@ -29,19 +38,18 @@ public struct Day<TZ: TimeZoneProvider> {
         self.init(year: components.year!, month: components.month!, day: components.day!)
     }
     
+    
+    // MARK: - Accessors
     var year: Int { components.year! }
     var month: Int { components.month! }
     var day: Int { components.day! }
 }
 
+
+// MARK: - TimeZoneProvider
 public protocol TimeZoneProvider {
     static var timeZone: TimeZone { get }
 }
-
-public typealias EasternDay  = Day<EasternTimeZone>
-public typealias CentralDay  = Day<CentralTimeZone>
-public typealias MountainDay = Day<MountainTimeZone>
-public typealias PacificDay  = Day<PacificTimeZone>
 
 public struct EasternTimeZone:  TimeZoneProvider { public static var timeZone: TimeZone { TimeZone(identifier: "America/New_York")! }}
 public struct CentralTimeZone:  TimeZoneProvider { public static var timeZone: TimeZone { TimeZone(identifier: "America/Chicago")! }}
