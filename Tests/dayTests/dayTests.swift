@@ -48,4 +48,21 @@
             let day = EasternDay(year: 2021, month: 8, day: 11)
             XCTAssertEqual("\(day)", "Aug 11, 2021")
         }
+        
+        func testEquatable() {
+            let day1 = EasternDay(year: 2021, month: 8, day: 11)
+            
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = [.withInternetDateTime]
+            let date = formatter.date(from: "2021-08-11T11:06:11Z")!
+            let day2 = EasternDay(date: date)
+            
+            let day3 = EasternDay(year: 2021, month: 8, day: 12)
+
+            XCTAssertEqual(day1, day2)
+            XCTAssertNotEqual(day1, day3)
+            XCTAssert(day1 == day2)
+            XCTAssert(day1 != day3)
+        }
+
     }
