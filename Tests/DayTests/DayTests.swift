@@ -1,7 +1,7 @@
     import XCTest
-    @testable import day
+    @testable import Day
 
-    final class dayTests: XCTestCase {
+    final class DayTests: XCTestCase {
         func testInit() {
             let day = EasternDay(year: 1, month: 2, day: 3)
             XCTAssertEqual(day.year, 1)
