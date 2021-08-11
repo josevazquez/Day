@@ -65,4 +65,28 @@
             XCTAssert(day1 != day3)
         }
 
+        func testComparable() {
+            let day1 = EasternDay(year: 2021, month: 8, day: 11)
+            let day2 = EasternDay(year: 2021, month: 8, day: 12)
+            let day3 = EasternDay(year: 2021, month: 9, day: 11)
+            let day4 = EasternDay(year: 2022, month: 8, day: 11)
+
+            XCTAssertLessThan(day1, day2)
+            XCTAssertLessThan(day1, day3)
+            XCTAssertLessThan(day1, day4)
+            XCTAssert(day1 < day2)
+            XCTAssert(day1 < day3)
+            XCTAssert(day1 < day4)
+            XCTAssertGreaterThan(day4, day3)
+            XCTAssert(day4 > day3)
+            XCTAssertFalse(day3 > day4)
+            XCTAssertFalse(day2 < day1)
+            XCTAssertFalse(day2 > day2)
+            XCTAssertFalse(day2 < day2)
+            XCTAssertLessThanOrEqual(day2, day2)
+            XCTAssertGreaterThanOrEqual(day2, day2)
+            XCTAssert(day2 >= day2)
+            XCTAssert(day2 <= day2)
+        }
+
     }
