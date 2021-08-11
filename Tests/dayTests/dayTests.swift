@@ -89,4 +89,23 @@
             XCTAssert(day2 <= day2)
         }
 
+        func testStrideable() {
+            let day1 = EasternDay(year: 2021, month: 2, day: 28)
+            let day2 = EasternDay(year: 2021, month: 3, day: 1)
+            XCTAssertEqual(day1.advanced(by: 1), day2)
+            XCTAssertNotEqual(day1.advanced(by: 2), day2)
+            XCTAssertEqual(day2.advanced(by: -1), day1)
+            
+            let day3 = EasternDay(year: 2021, month: 1, day: 1)
+            let day4 = EasternDay(year: 2022, month: 1, day: 1)
+            XCTAssertEqual(day1.distance(to: day2), 1)
+            XCTAssertEqual(day3.distance(to: day4), 365)
+            XCTAssertEqual(day1.distance(to: day3), -58)
+            XCTAssertEqual(day1.distance(to: day4), 307)
+            
+            let days = (day3...day1).map { $0.description }
+            XCTAssertEqual(days.first, "Jan 1, 2021")
+            XCTAssertEqual(days[31], "Feb 1, 2021")
+            XCTAssertEqual(days.last, "Feb 28, 2021")
+        }
     }

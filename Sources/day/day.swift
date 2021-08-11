@@ -15,7 +15,7 @@ public typealias CentralDay  = Day<CentralTimeZone>
 public typealias MountainDay = Day<MountainTimeZone>
 public typealias PacificDay  = Day<PacificTimeZone>
 
-public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Comparable {
+public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Comparable, Strideable {
     let components: DateComponents
     
     
@@ -32,9 +32,7 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
     
     /// Creates a Day intance based on a given `Date`
     init(date: Date) {
-        var calendar = Calendar.init(identifier: .gregorian)
-        calendar.timeZone = TZ.timeZone
-        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        let components = Self.calendar.dateComponents([.year, .month, .day], from: date)
         self.init(year: components.year!, month: components.month!, day: components.day!)
     }
     
@@ -45,6 +43,14 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
     var day: Int { components.day! }
     var date: Date { components.date! }
     
+    
+    // MARK: - Calendar
+    static var calendar: Calendar {
+        var calendar = Calendar.init(identifier: .gregorian)
+        calendar.timeZone = TZ.timeZone
+        return calendar
+    }
+        
     
     // MARK: - CustomStringConvertible
     static var formatter: DateFormatter {
@@ -63,6 +69,15 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
         lhs.date < rhs.date
     }
 
+    
+    // MARK: - Strideable
+    public func advanced(by n: Int) -> Day {
+        Day(year: year, month: month, day: day + n)
+    }
+
+    public func distance(to other: Day) -> Int {
+        Self.calendar.dateComponents([.day], from: date, to: other.date).day!
+    }
 }
 
 
