@@ -15,7 +15,7 @@ public typealias CentralDay  = Day<CentralTimeZone>
 public typealias MountainDay = Day<MountainTimeZone>
 public typealias PacificDay  = Day<PacificTimeZone>
 
-public struct Day<TZ: TimeZoneProvider> {
+public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible {
     let components: DateComponents
     
     
@@ -43,6 +43,18 @@ public struct Day<TZ: TimeZoneProvider> {
     var year: Int { components.year! }
     var month: Int { components.month! }
     var day: Int { components.day! }
+    
+    
+    // MARK: - CustomStringConvertible
+    static var formatter: DateFormatter {
+        let f = DateFormatter()
+        f.dateStyle = DateFormatter.Style.medium
+        f.timeZone = TZ.timeZone
+        return f
+    }
+    public var description: String {
+        Self.formatter.string(from: Date())
+    }
 }
 
 

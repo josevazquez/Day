@@ -43,4 +43,9 @@
             XCTAssertEqual(pt.month, 8)
             XCTAssertEqual(pt.day, 10)
         }
+        
+        func testCustomStringConvertible() {
+            let day = EasternDay(year: 2021, month: 8, day: 11)
+            XCTAssertEqual("\(day)", "Aug 11, 2021")
+        }
     }
