@@ -80,6 +80,14 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
     }
 }
 
+func + <TZ: TimeZoneProvider>(lhs: Day<TZ>, rhs: Int) -> Day<TZ> {
+    return lhs.advanced(by: rhs)
+}
+
+func - <TZ: TimeZoneProvider>(lhs: Day<TZ>, rhs: Int) -> Day<TZ> {
+    return lhs.advanced(by: -rhs)
+}
+
 
 // MARK: - TimeZoneProvider
 public protocol TimeZoneProvider {
