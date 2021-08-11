@@ -54,7 +54,7 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
         return f
     }
     public var description: String {
-        Self.formatter.string(from: Date())
+        Self.formatter.string(from: date)
     }
     
     
