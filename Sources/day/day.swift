@@ -15,13 +15,18 @@ public struct Day<TZ: TimeZoneProvider> {
         let calendar = Calendar.init(identifier: .gregorian)
         self.components = DateComponents(calendar: calendar, timeZone: TZ.timeZone, year: year, month: month, day: day)
     }
+
+    /// Creates a Day instance based on the current time.
+    init() {
+        self.init(date: Date())
+    }
     
-    static func today() -> Day {
+    /// Creates a Day intance based on a given `Date`
+    init(date: Date) {
         var calendar = Calendar.init(identifier: .gregorian)
         calendar.timeZone = TZ.timeZone
-        let now = Date()
-        let components = calendar.dateComponents([.year, .month, .day], from: now)
-        return Day(year: components.year!, month: components.month!, day: components.day!)
+        let components = calendar.dateComponents([.year, .month, .day], from: date)
+        self.init(year: components.year!, month: components.month!, day: components.day!)
     }
     
     var year: Int { components.year! }
