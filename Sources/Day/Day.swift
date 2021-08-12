@@ -80,6 +80,8 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
     }
 }
 
+
+// MARK: - Operators
 public func + <TZ: TimeZoneProvider>(lhs: Day<TZ>, rhs: Int) -> Day<TZ> {
     return lhs.advanced(by: rhs)
 }
