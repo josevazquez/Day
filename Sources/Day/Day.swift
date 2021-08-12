@@ -16,36 +16,36 @@ public typealias MountainDay = Day<MountainTimeZone>
 public typealias PacificDay  = Day<PacificTimeZone>
 
 public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Comparable, Strideable {
-    let components: DateComponents
+    private let components: DateComponents
     
     
     // MARK: - Initializers
-    init(year: Int, month: Int, day: Int) {
+    public init(year: Int, month: Int, day: Int) {
         let calendar = Calendar.init(identifier: .gregorian)
         self.components = DateComponents(calendar: calendar, timeZone: TZ.timeZone, year: year, month: month, day: day)
     }
 
     /// Creates a Day instance based on the current time.
-    init() {
+    public init() {
         self.init(date: Date())
     }
     
     /// Creates a Day intance based on a given `Date`
-    init(date: Date) {
+    public init(date: Date) {
         let components = Self.calendar.dateComponents([.year, .month, .day], from: date)
         self.init(year: components.year!, month: components.month!, day: components.day!)
     }
     
     
     // MARK: - Accessors
-    var year: Int { components.year! }
-    var month: Int { components.month! }
-    var day: Int { components.day! }
-    var date: Date { components.date! }
+    public var year: Int { components.year! }
+    public var month: Int { components.month! }
+    public var day: Int { components.day! }
+    public var date: Date { components.date! }
     
     
     // MARK: - Calendar
-    static var calendar: Calendar {
+    private static var calendar: Calendar {
         var calendar = Calendar.init(identifier: .gregorian)
         calendar.timeZone = TZ.timeZone
         return calendar
@@ -53,7 +53,7 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
         
     
     // MARK: - CustomStringConvertible
-    static var formatter: DateFormatter {
+    private static var formatter: DateFormatter {
         let f = DateFormatter()
         f.dateStyle = DateFormatter.Style.medium
         f.timeZone = TZ.timeZone
@@ -80,11 +80,11 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
     }
 }
 
-func + <TZ: TimeZoneProvider>(lhs: Day<TZ>, rhs: Int) -> Day<TZ> {
+public func + <TZ: TimeZoneProvider>(lhs: Day<TZ>, rhs: Int) -> Day<TZ> {
     return lhs.advanced(by: rhs)
 }
 
-func - <TZ: TimeZoneProvider>(lhs: Day<TZ>, rhs: Int) -> Day<TZ> {
+public func - <TZ: TimeZoneProvider>(lhs: Day<TZ>, rhs: Int) -> Day<TZ> {
     return lhs.advanced(by: -rhs)
 }
 
