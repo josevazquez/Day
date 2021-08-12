@@ -90,6 +90,10 @@ public func - <TZ: TimeZoneProvider>(lhs: Day<TZ>, rhs: Int) -> Day<TZ> {
     return lhs.advanced(by: -rhs)
 }
 
+public func - <TZ: TimeZoneProvider>(lhs: Day<TZ>, rhs: Day<TZ>) -> Int {
+    return rhs.distance(to: lhs)
+}
+
 
 // MARK: - TimeZoneProvider
 public protocol TimeZoneProvider {

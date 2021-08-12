@@ -124,6 +124,9 @@
             XCTAssertEqual(day3 + 365, day4)
             XCTAssertEqual(day1 - 58, day3)
             XCTAssertEqual(day1 + 307, day4)
+            
+            XCTAssertEqual(day4 - day3, 365)
+            XCTAssertEqual(day1 - day2, -1)
         }
 
     }
