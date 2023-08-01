@@ -14,6 +14,8 @@ public typealias EasternDay  = Day<EasternTimeZone>
 public typealias CentralDay  = Day<CentralTimeZone>
 public typealias MountainDay = Day<MountainTimeZone>
 public typealias PacificDay  = Day<PacificTimeZone>
+public typealias GMTDay      = Day<GMTTimeZone>
+
 
 public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Comparable, Strideable {
     private let components: DateComponents
@@ -104,3 +106,4 @@ public struct EasternTimeZone:  TimeZoneProvider { public static var timeZone: T
 public struct CentralTimeZone:  TimeZoneProvider { public static var timeZone: TimeZone { TimeZone(identifier: "America/Chicago")! }}
 public struct MountainTimeZone: TimeZoneProvider { public static var timeZone: TimeZone { TimeZone(identifier: "America/Phoenix")! }}
 public struct PacificTimeZone:  TimeZoneProvider { public static var timeZone: TimeZone { TimeZone(identifier: "America/Los_Angeles")! }}
+public struct GMTTimeZone:      TimeZoneProvider { public static var timeZone: TimeZone { TimeZone(identifier: "GMT")! }}
