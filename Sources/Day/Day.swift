@@ -46,6 +46,30 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
     public var date: Date { components.date! }
     
     
+    // MARK: - FirstOf
+    public func firstOfWeek(_ calendar: Calendar = Calendar(identifier: .gregorian)) -> Day<TZ> {
+        var tzCalendar = calendar
+        tzCalendar.timeZone = TZ.timeZone
+        let weekdayOrdinal = tzCalendar.dateComponents([.weekday], from: date)
+        var offset = weekdayOrdinal.weekday! - tzCalendar.firstWeekday
+        if offset < 0 { offset += 7 }
+        return self - offset
+    }
+    
+    public func firstOfMonth() -> Day<TZ> {
+        return Day<TZ>(year: year, month: month, day: 1)
+    }
+
+    public func firstOfQuarter() -> Day<TZ> {
+        let monthInQuarter = (month - 1) % 3
+        return Day<TZ>(year: year, month: month - monthInQuarter, day: 1)
+    }
+
+    public func firstOfYear() -> Day<TZ> {
+        return Day<TZ>(year: year, month: 1, day: 1)
+    }
+
+    
     // MARK: - Calendar
     private static var calendar: Calendar {
         var calendar = Calendar.init(identifier: .gregorian)
