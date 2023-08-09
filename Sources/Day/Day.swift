@@ -61,10 +61,23 @@ public struct Day<TZ: TimeZoneProvider>: CustomStringConvertible, Equatable, Com
         f.timeZone = TZ.timeZone
         return f
     }
+    
+    public static var dateFormatterDayStamp: DateFormatter { // "2020-04-16"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TZ.timeZone
+        return formatter
+    }
+    
     public var description: String {
         Self.formatter.string(from: date)
     }
-    
+
+    public func string(formatter: DateFormatter = dateFormatterDayStamp) -> String {
+        let tzFormatter = formatter
+        tzFormatter.timeZone = TZ.timeZone
+        return tzFormatter.string(from: date)
+    }
     
     // MARK: - Comparable
     public static func < (lhs: Day<TZ>, rhs: Day<TZ>) -> Bool {
